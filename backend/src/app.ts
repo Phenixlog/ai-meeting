@@ -19,9 +19,22 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-const corsOrigins = process.env.CORS_ORIGIN?.split(',') || (process.env.NODE_ENV === 'production' ? '*' : ['http://localhost:5173']);
 app.use(cors({
-    origin: corsOrigins,
+    origin: (origin, callback) => {
+        // Log incoming origin for debugging production connectivity
+        if (origin) logger.debug(`Incoming request from origin: ${origin}`);
+
+        const envOrigins = process.env.CORS_ORIGIN?.split(',');
+
+        // In production, if no CORS_ORIGIN is defined, echo back the origin
+        // This allows 'credentials: true' to work which is incompatible with '*'
+        if (process.env.NODE_ENV === 'production' && !envOrigins) {
+            callback(null, origin || true);
+        } else {
+            // Use configured origins or default development origin
+            callback(null, envOrigins || ['http://localhost:5173']);
+        }
+    },
     credentials: true,
 }));
 
