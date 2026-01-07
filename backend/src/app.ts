@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { config } from 'dotenv';
 import path from 'path';
+import { PrismaClient } from '@prisma/client';
 
 import authRoutes from './routes/auth.js';
 import meetingsRoutes from './routes/meetings.js';
