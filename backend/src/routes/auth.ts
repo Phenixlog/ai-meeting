@@ -2,11 +2,12 @@ import { Router, type Request, type Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
+import prisma from '../lib/prisma.js';
 import { generateToken } from '../utils/jwt.js';
 import { authMiddleware, type AuthenticatedRequest } from '../middleware/auth.js';
 
 const router = Router();
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient(); // Removed local instantiation
 
 // Validation schemas
 const signupSchema = z.object({

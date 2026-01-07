@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { config } from 'dotenv';
 import path from 'path';
-import { PrismaClient } from '@prisma/client';
+import prisma from './lib/prisma.js';
 
 import authRoutes from './routes/auth.js';
 import meetingsRoutes from './routes/meetings.js';
@@ -14,7 +14,9 @@ import { logger } from './utils/logger.js';
 // Load environment variables
 config();
 
-const prisma = new PrismaClient();
+// Debug: Check if DATABASE_URL is visible to Node
+logger.info(`🔍 Checking environment: DATABASE_URL is ${process.env.DATABASE_URL ? 'PRESENT' : 'MISSING'}`);
+logger.info(`🔍 Checking environment: NODE_ENV is ${process.env.NODE_ENV}`);
 
 // Test database connection
 async function checkDb() {
