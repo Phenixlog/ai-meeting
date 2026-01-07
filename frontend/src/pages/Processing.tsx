@@ -19,7 +19,7 @@ export function Processing() {
     const [currentStep, setCurrentStep] = useState<ProcessingStep>('UPLOADING');
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState<string | null>(null);
-    const [meetingId, setMeetingId] = useState<string | null>(null);
+    // const [meetingId, setMeetingId] = useState<string | null>(null);
     const hasStarted = useRef(false);
 
     const state = location.state as {
@@ -142,7 +142,7 @@ export function Processing() {
                 const createResponse = await meetingsApi.create(meetingData, token);
                 const newMeetingId = (createResponse.data as { id: string }).id;
                 console.log('Meeting created:', newMeetingId);
-                setMeetingId(newMeetingId);
+                // setMeetingId(newMeetingId);
                 setProgress(20);
 
                 // Step 2: Upload audio for transcription

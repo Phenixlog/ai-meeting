@@ -9,7 +9,7 @@ interface AudioWaveformProps {
 
 export function AudioWaveform({ isActive, isPaused, analyser }: AudioWaveformProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const animationRef = useRef<number>();
+    const animationRef = useRef<number | null>(null);
     const [bars] = useState(() => Array.from({ length: 40 }, () => Math.random() * 0.3 + 0.1));
 
     useEffect(() => {
@@ -71,7 +71,7 @@ export function AudioWaveform({ isActive, isPaused, analyser }: AudioWaveformPro
     if (!analyser) {
         return (
             <div className="flex items-center justify-center gap-[3px] h-16">
-                {bars.map((height, i) => (
+                {bars.map((_, i) => (
                     <div
                         key={i}
                         className={cn(

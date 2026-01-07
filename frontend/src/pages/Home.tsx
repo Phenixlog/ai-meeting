@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mic, Clock, FileText, Sparkles, CheckCircle2, Zap, ArrowRight, Play } from 'lucide-react';
+import { Mic, FileText, Sparkles, CheckCircle2, Zap, ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { APP_NAME } from '@/lib/constants';
 
@@ -111,7 +111,7 @@ export function Home() {
                                 color: 'emerald',
                                 gradient: 'from-emerald-500 to-emerald-600',
                             },
-                        ].map((feature, i) => (
+                        ].map((feature) => (
                             <div
                                 key={feature.title}
                                 className="group relative p-8 rounded-2xl bg-white border border-gray-100 hover:border-gray-200 hover:shadow-xl transition-all duration-300"

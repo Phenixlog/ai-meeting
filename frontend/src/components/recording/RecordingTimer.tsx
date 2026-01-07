@@ -15,7 +15,7 @@ export function RecordingTimer({
     isPaused,
     onTick,
 }: RecordingTimerProps) {
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
         if (isRecording && !isPaused) {

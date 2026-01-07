@@ -1,3 +1,5 @@
+import type { Timestamp } from './timestamp';
+
 // Meeting Types
 export type MeetingType =
     | 'DAILY'

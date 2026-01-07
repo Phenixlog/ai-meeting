@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Plus, Clock, Calendar, Trash2, FileText, Loader2, AlertCircle } from 'lucide-react';
+import { Search, Plus, Clock, Calendar, Trash2, FileText, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { SkeletonCard } from '@/components/ui/skeleton';
-import { cn, formatDate, formatDuration, getRelativeTime } from '@/lib/utils';
+import { formatDate, formatDuration, getRelativeTime } from '@/lib/utils';
 import { meetingsApi } from '@/services/api';
 import { useAuthStore } from '@/stores/authStore';
 import { MEETING_TYPE_LABELS, MEETING_TYPE_OPTIONS, type MeetingType } from '@/types';
