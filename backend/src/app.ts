@@ -19,7 +19,7 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-const corsOrigins = process.env.CORS_ORIGIN?.split(',') || ['http://localhost:5173'];
+const corsOrigins = process.env.CORS_ORIGIN?.split(',') || (process.env.NODE_ENV === 'production' ? '*' : ['http://localhost:5173']);
 app.use(cors({
     origin: corsOrigins,
     credentials: true,
