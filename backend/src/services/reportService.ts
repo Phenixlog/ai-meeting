@@ -1,9 +1,17 @@
 import OpenAI from 'openai';
 import { logger } from '../utils/logger.js';
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI lazily
+let openai: OpenAI | null = null;
+
+function getOpenAI() {
+    if (!openai) {
+        openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'missing-key',
+        });
+    }
+    return openai;
+}
 
 interface Timestamp {
     timeSeconds: number;
@@ -99,7 +107,8 @@ ${transcript}
 
 Rends le rapport professionnel, dense en informations utiles et évite le remplissage inutile.`;
 
-        const response = await openai.chat.completions.create({
+        const client = getOpenAI();
+        const response = await client.chat.completions.create({
             model: 'gpt-4o',
             messages: [
                 {

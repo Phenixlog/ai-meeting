@@ -2,9 +2,17 @@ import OpenAI from 'openai';
 import fs from 'fs';
 import { logger } from '../utils/logger.js';
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI lazily to avoid startup crashes if key is missing
+let openai: OpenAI | null = null;
+
+function getOpenAI() {
+    if (!openai) {
+        openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'missing-key',
+        });
+    }
+    return openai;
+}
 
 /**
  * Transcribe audio file using OpenAI Whisper API
@@ -23,12 +31,12 @@ export async function transcribeAudio(audioPath: string): Promise<string> {
         // Read the audio file
         const audioFile = fs.createReadStream(audioPath);
 
-        // Call Whisper API - let it auto-detect language for best results
-        const response = await openai.audio.transcriptions.create({
+        // Call Whisper API
+        const client = getOpenAI();
+        const response = await client.audio.transcriptions.create({
             file: audioFile,
             model: 'whisper-1',
             response_format: 'text',
-            // Don't specify language - let Whisper auto-detect (works better for multilingual)
         });
 
         logger.info(`Transcription completed successfully, length: ${response.length} chars`);
