@@ -13,6 +13,19 @@ import { logger } from './utils/logger.js';
 // Load environment variables
 config();
 
+const prisma = new PrismaClient();
+
+// Test database connection
+async function checkDb() {
+    try {
+        await prisma.$connect();
+        logger.info('✅ Database connected successfully');
+    } catch (error) {
+        logger.error('❌ Database connection failed:', error);
+    }
+}
+checkDb();
+
 const app = express();
 
 // Security middleware
